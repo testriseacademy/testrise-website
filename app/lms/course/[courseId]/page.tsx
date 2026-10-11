@@ -2,6 +2,8 @@ import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import {
   getAllCourses,
+  getCourses,
+  findUserByEmail,
   getModules,
   getLessons,
   getStudentProgress,
@@ -21,6 +23,16 @@ export default async function CourseDetailPage({ params }: PageProps) {
 
   if (!session) {
     redirect(`/lms/login?redirect=/lms/course/${courseId}`);
+  }
+
+  // Enforce student access level check matching SPA
+  if (session.role !== "mentor" && session.role !== "admin") {
+    const freshUserData = await findUserByEmail(session.email);
+    const assignedLevel = freshUserData?.user?.courseAssigned || session.courseAssigned || "1";
+    const allowedCourses = await getCourses(assignedLevel);
+    if (!allowedCourses.some((c) => c.courseId === courseId)) {
+      redirect("/lms/dashboard");
+    }
   }
 
   const allCourses = await getAllCourses();

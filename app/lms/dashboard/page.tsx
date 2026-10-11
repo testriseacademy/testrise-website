@@ -6,6 +6,7 @@ import {
   getLessons,
   getStudentProgress,
   formatRollNumber,
+  findUserByEmail,
 } from "@/lib/google-sheets";
 import LMSNavbar from "@/components/LMSNavbar";
 import {
@@ -28,8 +29,19 @@ export default async function StudentDashboardPage() {
     redirect("/lms/login?redirect=/lms/dashboard");
   }
 
-  // If mentor visits dashboard, give them a seamless portal
-  const assignedLevel = session.courseAssigned || "1";
+  // Fetch fresh user record from database so mentor access level updates reflect instantly
+  const freshUserData = await findUserByEmail(session.email);
+
+  // If student was blocked by mentor
+  if (
+    freshUserData?.user &&
+    (freshUserData.user.status === "Blocked" || freshUserData.user.status === "Inactive")
+  ) {
+    redirect("/lms/login?error=blocked");
+  }
+
+  const assignedLevel = freshUserData?.user?.courseAssigned || session.courseAssigned || "1";
+  const stepNum = assignedLevel.toString().match(/\d+/)?.[0] || assignedLevel || "1";
   const courses = await getCourses(assignedLevel);
   const progressRecords = await getStudentProgress(session.email);
 
@@ -87,10 +99,10 @@ export default async function StudentDashboardPage() {
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <span className="px-3 py-1 bg-emerald-500/10 text-emerald-400 rounded-lg text-xs font-mono font-bold border border-emerald-500/20">
-                  Roll No: {formatRollNumber(session.rollNumber)}
+                  Roll No: {formatRollNumber(freshUserData?.user?.rollNumber || session.rollNumber)}
                 </span>
-                <span className="px-3 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs font-bold">
-                  Access Level {assignedLevel}
+                <span className="px-3 py-1 bg-slate-800 text-emerald-400 rounded-lg text-xs font-bold border border-slate-700">
+                  Access: Step-{stepNum}
                 </span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
@@ -157,8 +169,8 @@ export default async function StudentDashboardPage() {
               >
                 <div>
                   <div className="flex justify-between items-start mb-3">
-                    <span className="px-2.5 py-0.5 bg-slate-950 text-emerald-400 rounded-lg text-[10px] font-bold border border-slate-800 uppercase">
-                      {course.category}
+                    <span className="px-2.5 py-0.5 bg-slate-950 text-emerald-400 rounded-lg text-[10px] font-bold border border-slate-800 uppercase tracking-wide">
+                      {course.category || `Step-${course.order}`}
                     </span>
                     <span className="text-xs font-mono font-bold text-slate-400">
                       {course.percent}%

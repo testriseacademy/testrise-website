@@ -75,7 +75,7 @@ export async function findUserByEmail(email: string): Promise<{ user: LMSUser; r
         passwordHash: data.password_hash,
         role: data.role as any,
         fullName: data.full_name,
-        courseAssigned: data.course_assigned || '1',
+        courseAssigned: (data.course_assigned || (data.access_level ? data.access_level.toString() : '1')),
         lastLogin: data.last_login || '',
         status: data.status || 'Active',
         createdDate: data.created_at || '',
@@ -146,9 +146,14 @@ export async function createUserOrUpdate(user: Partial<LMSUser>): Promise<{ succ
         assignedRoll = highest >= 1201 ? highest + 1 : 1201;
       }
 
+      const assignedCourse = user.courseAssigned || '1';
+      const numMatch = assignedCourse.match(/\d+/);
+      const lvlNum = numMatch ? parseInt(numMatch[0]) : 1;
+
       const updateData: any = {
         full_name: user.fullName,
-        course_assigned: user.courseAssigned || '1',
+        course_assigned: lvlNum.toString(),
+        access_level: lvlNum,
         status: user.status || 'Active',
         roll_number: assignedRoll,
       };
@@ -179,13 +184,18 @@ export async function createUserOrUpdate(user: Partial<LMSUser>): Promise<{ succ
         assignedRoll = highest >= 1201 ? highest + 1 : 1201;
       }
 
+      const assignedCourse = user.courseAssigned || '1';
+      const numMatch = assignedCourse.match(/\d+/);
+      const lvlNum = numMatch ? parseInt(numMatch[0]) : 1;
+
       const { error: insertError } = await supabase.from('lms_users').insert([
         {
           email: cleanEmail,
           password_hash: user.passwordHash || 'TRA@1234',
           role: user.role || 'student',
           full_name: user.fullName || 'Student',
-          course_assigned: user.courseAssigned || '1',
+          course_assigned: lvlNum.toString(),
+          access_level: lvlNum,
           status: user.status || 'Active',
           roll_number: assignedRoll,
         },
@@ -208,7 +218,12 @@ export async function createUserOrUpdate(user: Partial<LMSUser>): Promise<{ succ
 export async function updateStudentAccess(email: string, levelOrStatus: { courseAssigned?: string; status?: string }): Promise<{ success: boolean; error?: string }> {
   try {
     const updateData: any = {};
-    if (levelOrStatus.courseAssigned !== undefined) updateData.course_assigned = levelOrStatus.courseAssigned;
+    if (levelOrStatus.courseAssigned !== undefined) {
+      const match = levelOrStatus.courseAssigned.toString().match(/\d+/);
+      const lvlNum = match ? parseInt(match[0]) : 1;
+      updateData.course_assigned = lvlNum.toString();
+      updateData.access_level = lvlNum;
+    }
     if (levelOrStatus.status !== undefined) updateData.status = levelOrStatus.status;
 
     const { error } = await supabase
@@ -239,7 +254,7 @@ export async function readSheet(sheetName: string): Promise<string[][]> {
           u.password_hash,
           u.role,
           u.full_name,
-          u.course_assigned || '1',
+          (u.course_assigned || (u.access_level ? u.access_level.toString() : '1')),
           u.last_login || '',
           u.status || 'Active',
           u.created_at || '',
@@ -322,27 +337,27 @@ export interface StudentProgress {
 const COURSES_DATA: LMSCourse[] = [
   {
     courseId: 'TRA-QA-01',
-    courseName: 'Software Manual Testing & Backend Testing',
-    description: 'Master SDLC, STLC, test cases design, defect tracking with JIRA, and SQL backend data verification.',
-    category: 'Level 1: Foundation',
+    courseName: 'Software Testing Step-1',
+    description: 'Manual Testing, SDLC/STLC, Test Cases, Defect Life Cycle, JIRA & SQL Backend Verification.',
+    category: 'Step-1',
     mentorEmail: 'admin@testriseacademy.com',
     status: 'Published',
     order: 1,
   },
   {
     courseId: 'TRA-API-02',
-    courseName: 'API & ETL Data Pipeline Testing',
-    description: 'Postman, REST Assured automation, JSON verification, ETL validation, and data warehouse integrity checks.',
-    category: 'Level 2: Intermediate',
+    courseName: 'Software Testing Step-2',
+    description: 'API Testing, Postman Collections, REST Assured Automation & ETL Data Pipeline Integrity.',
+    category: 'Step-2',
     mentorEmail: 'admin@testriseacademy.com',
     status: 'Published',
     order: 2,
   },
   {
     courseId: 'TRA-AUTO-03',
-    courseName: 'Python Automation Testing & Enterprise QA',
-    description: 'Selenium WebDriver, Pytest framework, CI/CD with Git & Jenkins, and live enterprise projects.',
-    category: 'Level 3: Advanced',
+    courseName: 'Software Testing Step-3',
+    description: 'Python Automation, Selenium WebDriver, Page Object Model (POM), Pytest & CI/CD Jenkins.',
+    category: 'Step-3',
     mentorEmail: 'admin@testriseacademy.com',
     status: 'Published',
     order: 3,
@@ -440,8 +455,21 @@ export async function getAllCourses(): Promise<LMSCourse[]> {
 
 export async function getCourses(levelStr?: string): Promise<LMSCourse[]> {
   const allCourses = await getAllCourses();
-  const level = parseInt(levelStr || '1');
-  return allCourses.filter((c) => c.order <= Math.max(level, 1));
+  if (!levelStr) return allCourses;
+
+  const rawStr = levelStr.toString().trim();
+  if (rawStr.toLowerCase() === "all") return allCourses;
+
+  // Extract number (e.g. "3", "Step-3", "Step 3" -> 3)
+  const numMatch = rawStr.match(/\d+/);
+  const maxLevel = numMatch ? parseInt(numMatch[0]) : 1;
+
+  return allCourses.filter((c) => {
+    // Unlocks all courses up to maxLevel (e.g. Step-1, Step-2, Step-3)
+    if (c.order <= maxLevel) return true;
+    if (c.category?.toLowerCase() === rawStr.toLowerCase()) return true;
+    return false;
+  });
 }
 
 export async function getModules(courseId: string): Promise<LMSModule[]> {

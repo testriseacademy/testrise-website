@@ -174,7 +174,7 @@ export default async function MentorDashboardPage() {
         <div className="mb-12">
           <h2 className="text-xl font-bold text-white tracking-tight mb-6 flex items-center gap-2">
             <BookOpen className="w-5 h-5 text-emerald-400" />
-            QA Curriculum & Level Management
+            QA Curriculum & Step Management
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -184,8 +184,8 @@ export default async function MentorDashboardPage() {
                 className="bg-slate-900/40 border border-slate-800 hover:border-slate-700 transition-all rounded-3xl p-6 shadow-xl flex flex-col justify-between"
               >
                 <div>
-                  <span className="px-2.5 py-0.5 bg-slate-950 text-emerald-400 rounded-lg text-[10px] font-bold border border-slate-800 uppercase">
-                    {course.category}
+                  <span className="px-2.5 py-0.5 bg-slate-950 text-emerald-400 rounded-lg text-[10px] font-bold border border-slate-800 uppercase tracking-wide">
+                    {course.category || `Step-${course.order}`}
                   </span>
                   <h3 className="font-bold text-white text-base mt-3 mb-1">
                     {course.courseName}

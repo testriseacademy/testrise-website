@@ -119,7 +119,7 @@ Hi ${name},
 🆔 *Email / Login ID:* ${email}
 🏷️ *Roll Number:* ${formatRollNumber(rollNo)}
 🔑 *Password:* ${password}
-📚 *Assigned Course:* Level ${level}
+📚 *Course Access:* Step-${level.toString().match(/\d+/)?.[0] || level}
 
 कृपया वरील लिंकवर जाऊन तुमचे लेक्चर्स आणि प्रॅक्टिस सुरू करा. काही अडचण असल्यास कळवा! 🚀`;
   };
@@ -404,21 +404,31 @@ Hi ${name},
                       </td>
                       {/* Access Level Selector */}
                       <td className="py-3 px-4">
-                        <div className="flex gap-1">
-                          {["1", "2", "3"].map((lvl) => (
-                            <button
-                              key={lvl}
-                              onClick={() => handleUpdateLevel(stud.email, lvl)}
-                              className={`w-6 h-6 rounded-md font-bold text-[10px] transition-all ${
-                                stud.courseAssigned === lvl
-                                  ? "bg-emerald-500 text-slate-950 shadow-sm"
-                                  : "bg-slate-950 text-slate-500 border border-slate-800 hover:text-white"
-                              }`}
-                              title={`Unlock Level ${lvl}`}
-                            >
-                              {lvl}
-                            </button>
-                          ))}
+                        <div className="flex items-center gap-1">
+                          {[
+                            { id: "1", label: "Step-1" },
+                            { id: "2", label: "Step-2" },
+                            { id: "3", label: "Step-3" },
+                          ].map((step) => {
+                            const curNum = stud.courseAssigned
+                              ? stud.courseAssigned.toString().match(/\d+/)?.[0] || stud.courseAssigned
+                              : "1";
+                            const isCurrent = curNum === step.id;
+                            return (
+                              <button
+                                key={step.id}
+                                onClick={() => handleUpdateLevel(stud.email, step.id)}
+                                className={`px-2 py-1 rounded-lg font-bold text-[10px] transition-all whitespace-nowrap ${
+                                  isCurrent
+                                    ? "bg-emerald-500 text-slate-950 shadow-sm"
+                                    : "bg-slate-950 text-slate-400 border border-slate-800 hover:text-white hover:border-slate-700"
+                                }`}
+                                title={`Grant ${step.label} Access`}
+                              >
+                                {step.label}
+                              </button>
+                            );
+                          })}
                         </div>
                       </td>
                       {/* Progress Badge */}
@@ -743,8 +753,8 @@ Hi ${name},
                     {enrolledStudentInfo.password}
                   </p>
                   <p>
-                    <span className="text-slate-500">Course Level:</span> Level{" "}
-                    {enrolledStudentInfo.level}
+                    <span className="text-slate-500">Course Access:</span> Step-
+                    {enrolledStudentInfo.level.toString().match(/\d+/)?.[0] || enrolledStudentInfo.level}
                   </p>
                 </div>
 
@@ -863,16 +873,16 @@ Hi ${name},
 
                   <div>
                     <label className="block text-xs font-semibold text-slate-300 mb-1">
-                      Initial Course Access Level
+                      Initial Course Access Step
                     </label>
                     <select
                       value={newLevel}
                       onChange={(e) => setNewLevel(e.target.value)}
                       className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-white text-xs focus:ring-1 focus:ring-emerald-500"
                     >
-                      <option value="1">Level 1 - Software Manual Testing & SQL</option>
-                      <option value="2">Level 2 - API Testing & ETL Data Pipelines</option>
-                      <option value="3">Level 3 - Python Automation & Live Projects</option>
+                      <option value="1">Step-1 - Software Testing Step-1</option>
+                      <option value="2">Step-2 - Software Testing Step-2</option>
+                      <option value="3">Step-3 - Software Testing Step-3</option>
                     </select>
                   </div>
 
