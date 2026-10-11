@@ -14,6 +14,8 @@ import {
   ChevronRight,
   ShieldCheck,
   Award,
+  FileText,
+  ExternalLink,
 } from "lucide-react";
 import { LMSCourse, LMSModule, LMSLesson, StudentProgress } from "@/lib/google-sheets";
 
@@ -134,16 +136,38 @@ export default function CoursePlayerClient({
           </span>
         </div>
 
-        {/* Video Player Frame */}
+        {/* Video Player / Notes Frame */}
         <div className="relative aspect-video w-full bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center">
           {activeLesson ? (
-            <iframe
-              src={activeLesson.videoUrl}
-              title={activeLesson.lessonTitle}
-              className="w-full h-full border-0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+            activeLesson.lessonType === "notes" ? (
+              <div className="w-full h-full p-8 overflow-y-auto flex flex-col justify-center items-center text-center bg-slate-950">
+                <FileText className="w-12 h-12 text-emerald-400 mb-3" />
+                <h3 className="text-lg font-bold text-white mb-2">{activeLesson.lessonTitle}</h3>
+                <p className="text-slate-300 text-xs sm:text-sm max-w-xl whitespace-pre-wrap leading-relaxed text-left bg-slate-900/60 p-6 rounded-2xl border border-slate-800">
+                  {activeLesson.notesContent ||
+                    activeLesson.notes ||
+                    "Read the notes and material below to complete this lesson."}
+                </p>
+              </div>
+            ) : (
+              <iframe
+                src={(() => {
+                  const url = activeLesson.videoUrl || activeLesson.driveFileId || "";
+                  if (url.includes("/embed/") || url.includes("/preview")) return url;
+                  const ytMatch = url.match(
+                    /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/
+                  );
+                  if (ytMatch) return `https://www.youtube.com/embed/${ytMatch[1]}`;
+                  const driveMatch = url.match(/(?:file\/d\/|id=)([\w-]{25,})/);
+                  if (driveMatch) return `https://drive.google.com/file/d/${driveMatch[1]}/preview`;
+                  return url;
+                })()}
+                title={activeLesson.lessonTitle}
+                className="w-full h-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            )
           ) : (
             <div className="text-center p-8 text-slate-500">
               <Play className="w-12 h-12 mx-auto mb-2 opacity-40 text-emerald-400" />
@@ -160,7 +184,7 @@ export default function CoursePlayerClient({
                 <span className="text-xs font-mono font-bold text-slate-400">
                   {activeLesson.lessonId}
                 </span>
-                <span className="text-slate-600">?</span>
+                <span className="text-slate-600">•</span>
                 <span className="text-xs text-slate-400 flex items-center gap-1">
                   <Clock className="w-3.5 h-3.5 text-emerald-400" />
                   {activeLesson.durationMinutes} Mins
@@ -193,6 +217,32 @@ export default function CoursePlayerClient({
                 </>
               )}
             </button>
+          </div>
+        )}
+
+        {/* Lesson Notes & Study Materials Card */}
+        {activeLesson && (activeLesson.notesContent || activeLesson.notes || activeLesson.attachmentUrl) && (
+          <div className="mt-6 bg-slate-900/40 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+            <h3 className="text-sm font-bold text-white mb-3 flex items-center gap-2">
+              <FileText className="w-4 h-4 text-emerald-400" />
+              Lecture Notes & Resources
+            </h3>
+            {(activeLesson.notesContent || activeLesson.notes) && (
+              <div className="text-slate-300 text-xs sm:text-sm leading-relaxed whitespace-pre-wrap mb-4 bg-slate-950/50 p-4 rounded-xl border border-slate-850">
+                {activeLesson.notesContent || activeLesson.notes}
+              </div>
+            )}
+            {activeLesson.attachmentUrl && (
+              <a
+                href={activeLesson.attachmentUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/20 rounded-xl text-xs font-bold transition-all"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                Open Reference PDF / Material
+              </a>
+            )}
           </div>
         )}
       </div>

@@ -11,7 +11,7 @@ import { supabase } from "@/lib/supabase";
 import LMSNavbar from "@/components/LMSNavbar";
 import MentorStudentManager from "@/components/MentorStudentManager";
 import MentorMockManager from "@/components/MentorMockManager";
-import { BookOpen, Users, Video, ShieldCheck, ChevronRight } from "lucide-react";
+import { BookOpen, Users, Video, ShieldCheck, ChevronRight, Edit3 } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -194,17 +194,27 @@ export default async function MentorDashboardPage() {
                     {course.description}
                   </p>
                 </div>
-                <div className="mt-6 pt-4 border-t border-slate-800/80 flex justify-between items-center">
+                <div className="mt-6 pt-4 border-t border-slate-800/80 flex flex-wrap gap-2 justify-between items-center">
                   <span className="text-[11px] font-mono text-slate-500">
                     {coursesLessonsCount[course.courseId] || 0} Lessons
                   </span>
-                  <a
-                    href={`/lms/course/${course.courseId}`}
-                    className="text-xs text-emerald-400 hover:text-emerald-300 font-bold inline-flex items-center gap-1"
-                  >
-                    View Player
-                    <ChevronRight className="w-3.5 h-3.5" />
-                  </a>
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={`/lms/mentor/course/${course.courseId}`}
+                      className="inline-flex items-center gap-1.5 bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-slate-950 font-bold text-xs px-3.5 py-1.5 rounded-xl transition-all shadow-md shadow-emerald-500/10"
+                    >
+                      <Edit3 className="w-3.5 h-3.5" />
+                      Edit Syllabus
+                    </a>
+                    <a
+                      href={`/lms/course/${course.courseId}`}
+                      className="text-xs text-slate-400 hover:text-white font-semibold inline-flex items-center gap-1 px-2 py-1.5 rounded-lg border border-slate-800 hover:border-slate-700"
+                      title="Preview Player"
+                    >
+                      Preview
+                      <ChevronRight className="w-3 h-3" />
+                    </a>
+                  </div>
                 </div>
               </div>
             ))}
