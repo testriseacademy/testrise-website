@@ -120,13 +120,13 @@ function LoginForm() {
               </div>
             )}
 
-            {/* Email Field */}
+            {/* Email / User ID Field */}
             <div>
               <label
                 htmlFor="email"
                 className="block text-sm font-medium text-slate-300 mb-2"
               >
-                Email Address
+                User ID / Email Address
               </label>
               <div className="relative rounded-xl shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -135,13 +135,13 @@ function LoginForm() {
                 <input
                   id="email"
                   name="email"
-                  type="email"
-                  autoComplete="email"
+                  type="text"
+                  autoComplete="username"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="block w-full pl-11 pr-4 py-3 bg-slate-950/50 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all text-sm"
-                  placeholder="student@testriseacademy.com"
+                  placeholder="admin or your email"
                   disabled={loading || success}
                 />
               </div>

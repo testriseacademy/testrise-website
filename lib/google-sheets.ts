@@ -49,15 +49,15 @@ export async function findUserByEmail(email: string): Promise<{ user: LMSUser; r
       .maybeSingle();
 
     if (error || !data) {
-      // Fallback default mentor check if DB is freshly created
-      if (cleanEmail === 'admin@testriseacademy.com') {
+      // Fallback default mentor check if DB is freshly created or matching admin
+      if (cleanEmail === 'admin' || cleanEmail === 'admin@testriseacademy.com') {
         return {
           user: {
             email: 'admin@testriseacademy.com',
-            passwordHash: 'mentor123',
+            passwordHash: 'admin@123',
             role: 'mentor',
             fullName: 'Test Rise Mentor',
-            courseAssigned: '1',
+            courseAssigned: '3',
             lastLogin: '',
             status: 'Active',
             createdDate: new Date().toISOString(),
