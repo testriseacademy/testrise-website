@@ -17,6 +17,8 @@ import {
   Lock,
   Unlock,
   Sparkles,
+  Copy,
+  MessageSquare,
 } from "lucide-react";
 import { formatRollNumber } from "@/lib/google-sheets";
 
@@ -90,6 +92,52 @@ export default function MentorStudentManager({
   const [newLevel, setNewLevel] = useState("1");
   const [savingStudent, setSavingStudent] = useState(false);
   const [addSuccessMsg, setAddSuccessMsg] = useState("");
+  const [enrolledStudentInfo, setEnrolledStudentInfo] = useState<{
+    name: string;
+    email: string;
+    password: string;
+    rollNumber: string | number | null;
+    level: string;
+  } | null>(null);
+
+  // Quick WhatsApp copy state
+  const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
+
+  const getWhatsAppMessage = (
+    name: string,
+    email: string,
+    rollNo: string | number | null,
+    level: string,
+    password = "TRA@1234"
+  ) => {
+    return `🎓 *Test Rise Academy - Student LMS Access*
+
+Hi ${name},
+तुमचे Test Rise Academy LMS Student Portal खाते यशस्वीरित्या सुरू झाले आहे!
+
+🔗 *Login URL:* https://testriseacademy.com/lms/login
+🆔 *Email / Login ID:* ${email}
+🏷️ *Roll Number:* ${formatRollNumber(rollNo)}
+🔑 *Password:* ${password}
+📚 *Assigned Course:* Level ${level}
+
+कृपया वरील लिंकवर जाऊन तुमचे लेक्चर्स आणि प्रॅक्टिस सुरू करा. काही अडचण असल्यास कळवा! 🚀`;
+  };
+
+  const handleCopyCredentials = (
+    name: string,
+    email: string,
+    rollNo: string | number | null,
+    level: string,
+    password = "TRA@1234"
+  ) => {
+    const text = getWhatsAppMessage(name, email, rollNo, level, password);
+    navigator.clipboard.writeText(text);
+    setCopiedEmail(email);
+    setTimeout(() => {
+      setCopiedEmail(null);
+    }, 2500);
+  };
 
   // Video progress details modal
   const [selectedStudentProgress, setSelectedStudentProgress] = useState<{
@@ -171,26 +219,25 @@ export default function MentorStudentManager({
       });
       const data = await res.json();
       if (res.ok) {
-        setAddSuccessMsg(
-          `Student enrolled successfully! Roll No: ${formatRollNumber(data.rollNumber)}`
-        );
+        const studentInfo = {
+          name: newName.trim(),
+          email: newEmail.trim().toLowerCase(),
+          password: newPassword,
+          rollNumber: data.rollNumber || null,
+          level: newLevel,
+        };
+        setEnrolledStudentInfo(studentInfo);
         setStudents((prev) => [
           ...prev,
           {
-            email: newEmail.trim().toLowerCase(),
-            fullName: newName.trim(),
-            courseAssigned: newLevel,
+            email: studentInfo.email,
+            fullName: studentInfo.name,
+            courseAssigned: studentInfo.level,
             lastLogin: "Never",
             status: "Active",
             roll_number: data.rollNumber || null,
           },
         ]);
-        setTimeout(() => {
-          setShowAddModal(false);
-          setNewName("");
-          setNewEmail("");
-          setAddSuccessMsg("");
-        }, 1500);
       } else {
         alert(data.error || "Failed to create student");
       }
@@ -404,16 +451,46 @@ export default function MentorStudentManager({
                         </span>
                       </td>
                       <td className="py-3 px-4">
-                        <button
-                          onClick={() => handleToggleStatus(stud.email, stud.status)}
-                          className={`text-[10px] font-bold px-2 py-1 rounded-lg border transition-all ${
-                            stud.status === "Active"
-                              ? "bg-red-500/10 text-red-400 border-red-500/20 hover:bg-red-500/20"
-                              : "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20"
-                          }`}
-                        >
-                          {stud.status === "Active" ? "Block" : "Activate"}
-                        </button>
+                        <div className="flex items-center gap-1.5">
+                          <button
+                            onClick={() =>
+                              handleCopyCredentials(
+                                stud.fullName,
+                                stud.email,
+                                stud.roll_number,
+                                stud.courseAssigned
+                              )
+                            }
+                            className={`text-[10px] font-bold px-2.5 py-1 rounded-lg border transition-all flex items-center gap-1 ${
+                              copiedEmail === stud.email
+                                ? "bg-emerald-500 text-slate-950 border-emerald-400"
+                                : "bg-slate-950 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/10"
+                            }`}
+                            title="Copy Login Credentials for WhatsApp"
+                          >
+                            {copiedEmail === stud.email ? (
+                              <>
+                                <CheckCircle2 className="w-3 h-3" />
+                                Copied!
+                              </>
+                            ) : (
+                              <>
+                                <Copy className="w-3 h-3" />
+                                WhatsApp
+                              </>
+                            )}
+                          </button>
+                          <button
+                            onClick={() => handleToggleStatus(stud.email, stud.status)}
+                            className={`text-[10px] font-bold px-2 py-1 rounded-lg border transition-all ${
+                              stud.status === "Active"
+                                ? "bg-red-500/10 text-red-400 border-red-500/20 hover:bg-red-500/20"
+                                : "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20"
+                            }`}
+                          >
+                            {stud.status === "Active" ? "Block" : "Activate"}
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   );
@@ -457,7 +534,22 @@ export default function MentorStudentManager({
                       <p className="text-slate-400 text-[11px]">{app.city || "Online"}</p>
                     </td>
                     <td className="py-3 px-4">
-                      <p className="text-slate-300 font-mono text-[11px]">{app.mobile}</p>
+                      <div className="flex items-center gap-1.5">
+                        <p className="text-slate-300 font-mono text-[11px]">{app.mobile}</p>
+                        {app.mobile && (
+                          <a
+                            href={`https://wa.me/91${app.mobile.replace(/\D/g, "")}?text=${encodeURIComponent(
+                              `Hi ${app.full_name}, Test Rise Academy मधून संपर्क करत आहोत. तुमच्या ऍप्लिकेशनबद्दल (Roll: ${app.roll_number || ""}) चर्चा करायची होती.`
+                            )}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-1 rounded bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 text-[10px] inline-flex items-center gap-1"
+                            title="Chat on WhatsApp"
+                          >
+                            <MessageSquare className="w-3 h-3" />
+                          </a>
+                        )}
+                      </div>
                       <p className="text-slate-500 text-[11px]">{app.email}</p>
                     </td>
                     <td className="py-3 px-4 text-slate-300">
@@ -614,98 +706,202 @@ export default function MentorStudentManager({
       {showAddModal && (
         <div className="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl">
-            <h3 className="text-lg font-bold text-white mb-2">Enroll New Student</h3>
-            <p className="text-xs text-slate-400 mb-6">
-              Create student login credentials and assign their starting access level.
-            </p>
+            {enrolledStudentInfo ? (
+              <div className="space-y-4">
+                <div className="text-center py-2">
+                  <div className="w-12 h-12 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <CheckCircle2 className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-lg font-bold text-white">Student Enrolled Successfully!</h3>
+                  <p className="text-xs text-slate-400">
+                    Roll Number:{" "}
+                    <span className="font-mono text-emerald-400 font-bold">
+                      {formatRollNumber(enrolledStudentInfo.rollNumber)}
+                    </span>
+                  </p>
+                </div>
 
-            {addSuccessMsg && (
-              <div className="mb-4 p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl text-xs font-semibold flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 shrink-0" />
-                {addSuccessMsg}
+                {/* Pre-formatted Credentials Card */}
+                <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-xs font-mono text-slate-300 space-y-1.5 select-all">
+                  <p className="font-bold text-emerald-400 mb-1">🎓 Test Rise Student LMS Access</p>
+                  <p>
+                    <span className="text-slate-500">Student:</span> {enrolledStudentInfo.name}
+                  </p>
+                  <p>
+                    <span className="text-slate-500">Roll No:</span>{" "}
+                    {formatRollNumber(enrolledStudentInfo.rollNumber)}
+                  </p>
+                  <p>
+                    <span className="text-slate-500">Login URL:</span>{" "}
+                    https://testriseacademy.com/lms/login
+                  </p>
+                  <p>
+                    <span className="text-slate-500">Email:</span> {enrolledStudentInfo.email}
+                  </p>
+                  <p>
+                    <span className="text-slate-500">Password:</span>{" "}
+                    {enrolledStudentInfo.password}
+                  </p>
+                  <p>
+                    <span className="text-slate-500">Course Level:</span> Level{" "}
+                    {enrolledStudentInfo.level}
+                  </p>
+                </div>
+
+                <div className="flex flex-col gap-2 pt-2">
+                  <button
+                    onClick={() =>
+                      handleCopyCredentials(
+                        enrolledStudentInfo.name,
+                        enrolledStudentInfo.email,
+                        enrolledStudentInfo.rollNumber,
+                        enrolledStudentInfo.level,
+                        enrolledStudentInfo.password
+                      )
+                    }
+                    className="w-full py-2.5 px-4 bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-slate-950 font-bold rounded-xl text-xs transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20"
+                  >
+                    {copiedEmail === enrolledStudentInfo.email ? (
+                      <>
+                        <CheckCircle2 className="w-4 h-4" />
+                        Copied to Clipboard! ✓
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-4 h-4" />
+                        📋 Copy WhatsApp Message
+                      </>
+                    )}
+                  </button>
+
+                  <a
+                    href={`https://wa.me/?text=${encodeURIComponent(
+                      getWhatsAppMessage(
+                        enrolledStudentInfo.name,
+                        enrolledStudentInfo.email,
+                        enrolledStudentInfo.rollNumber,
+                        enrolledStudentInfo.level,
+                        enrolledStudentInfo.password
+                      )
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-2.5 px-4 bg-slate-950 hover:bg-slate-800 text-emerald-400 border border-emerald-500/30 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2"
+                  >
+                    <MessageSquare className="w-4 h-4" />
+                    📲 Share directly on WhatsApp
+                  </a>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEnrolledStudentInfo(null);
+                      setNewName("");
+                      setNewEmail("");
+                      setShowAddModal(false);
+                    }}
+                    className="mt-2 py-2 text-xs text-slate-400 hover:text-white"
+                  >
+                    Done / Close
+                  </button>
+                </div>
               </div>
+            ) : (
+              <>
+                <h3 className="text-lg font-bold text-white mb-2">Enroll New Student</h3>
+                <p className="text-xs text-slate-400 mb-6">
+                  Create student login credentials and assign their starting access level.
+                </p>
+
+                {addSuccessMsg && (
+                  <div className="mb-4 p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl text-xs font-semibold flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 shrink-0" />
+                    {addSuccessMsg}
+                  </div>
+                )}
+
+                <form onSubmit={handleAddStudent} className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 mb-1">
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={newName}
+                      onChange={(e) => setNewName(e.target.value)}
+                      placeholder="e.g. Rahul Sharma"
+                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-white text-xs focus:ring-1 focus:ring-emerald-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 mb-1">
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      value={newEmail}
+                      onChange={(e) => setNewEmail(e.target.value)}
+                      placeholder="rahul@example.com"
+                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-white text-xs focus:ring-1 focus:ring-emerald-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 mb-1">
+                      Initial Password
+                    </label>
+                    <input
+                      type="text"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-white text-xs font-mono focus:ring-1 focus:ring-emerald-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 mb-1">
+                      Initial Course Access Level
+                    </label>
+                    <select
+                      value={newLevel}
+                      onChange={(e) => setNewLevel(e.target.value)}
+                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-white text-xs focus:ring-1 focus:ring-emerald-500"
+                    >
+                      <option value="1">Level 1 - Software Manual Testing & SQL</option>
+                      <option value="2">Level 2 - API Testing & ETL Data Pipelines</option>
+                      <option value="3">Level 3 - Python Automation & Live Projects</option>
+                    </select>
+                  </div>
+
+                  <div className="flex justify-end gap-3 pt-4">
+                    <button
+                      type="button"
+                      onClick={() => setShowAddModal(false)}
+                      className="px-4 py-2.5 text-xs font-semibold text-slate-400 hover:text-white"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={savingStudent}
+                      className="px-5 py-2.5 text-xs font-bold bg-emerald-500 text-slate-950 rounded-xl hover:bg-emerald-600 disabled:opacity-50 transition-all flex items-center gap-1.5"
+                    >
+                      {savingStudent ? (
+                        <>
+                          <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                          Enrolling...
+                        </>
+                      ) : (
+                        "Save & Enroll Student"
+                      )}
+                    </button>
+                  </div>
+                </form>
+              </>
             )}
-
-            <form onSubmit={handleAddStudent} className="space-y-4">
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={newName}
-                  onChange={(e) => setNewName(e.target.value)}
-                  placeholder="e.g. Rahul Sharma"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-white text-xs focus:ring-1 focus:ring-emerald-500"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  required
-                  value={newEmail}
-                  onChange={(e) => setNewEmail(e.target.value)}
-                  placeholder="rahul@example.com"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-white text-xs focus:ring-1 focus:ring-emerald-500"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
-                  Initial Password
-                </label>
-                <input
-                  type="text"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-white text-xs font-mono focus:ring-1 focus:ring-emerald-500"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
-                  Initial Course Access Level
-                </label>
-                <select
-                  value={newLevel}
-                  onChange={(e) => setNewLevel(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-white text-xs focus:ring-1 focus:ring-emerald-500"
-                >
-                  <option value="1">Level 1 - Software Manual Testing & SQL</option>
-                  <option value="2">Level 2 - API Testing & ETL Data Pipelines</option>
-                  <option value="3">Level 3 - Python Automation & Live Projects</option>
-                </select>
-              </div>
-
-              <div className="flex justify-end gap-3 pt-4">
-                <button
-                  type="button"
-                  onClick={() => setShowAddModal(false)}
-                  className="px-4 py-2.5 text-xs font-semibold text-slate-400 hover:text-white"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={savingStudent}
-                  className="px-5 py-2.5 text-xs font-bold bg-emerald-500 text-slate-950 rounded-xl hover:bg-emerald-600 disabled:opacity-50 transition-all flex items-center gap-1.5"
-                >
-                  {savingStudent ? (
-                    <>
-                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                      Enrolling...
-                    </>
-                  ) : (
-                    "Save & Enroll Student"
-                  )}
-                </button>
-              </div>
-            </form>
           </div>
         </div>
       )}
