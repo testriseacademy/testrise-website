@@ -15,7 +15,6 @@ import Statistics from "@/components/Statistics";
 import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
 import Contact from "@/components/Contact";
-import ReferralProgram from "@/components/ReferralProgram";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -35,7 +34,6 @@ export default function Home() {
       <LearningRoadmap />
       <WhySoftwareTesting />
       <Statistics />
-      <ReferralProgram />
       <FAQ />
       <FinalCTA />
       <Contact />
