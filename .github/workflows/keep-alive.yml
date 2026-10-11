@@ -1,0 +1,23 @@
+name: Supabase Keep Alive
+
+on:
+  schedule:
+    # Runs at 00:00 UTC and 12:00 UTC every day (every 12 hours)
+    - cron: '0 0,12 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Keep-Alive API Endpoint
+        run: |
+          echo "Pinging Test Rise Academy Keep-Alive endpoint..."
+          RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}" "https://testriseacademy.com/api/keep-alive")
+          echo "$RESPONSE"
+          STATUS=$(echo "$RESPONSE" | tr -d '\r' | grep 'HTTP_STATUS:' | cut -d':' -f2)
+          if [ "$STATUS" -ne 200 ]; then
+            echo "Keep-alive ping failed with status $STATUS"
+            exit 1
+          fi
+          echo "Supabase keep-alive ping completed successfully!"
