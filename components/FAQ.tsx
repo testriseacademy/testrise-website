@@ -58,7 +58,7 @@ const faqs = [
 
 export default function FAQ() {
   return (
-    <section className="section-padding bg-brand-gray-50">
+    <section id="faq" className="section-padding bg-brand-gray-50">
       <div className="container-main">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

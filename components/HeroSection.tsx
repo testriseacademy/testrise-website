@@ -104,10 +104,10 @@ export default function HeroSection() {
                 <ArrowRight className="w-5 h-5" />
               </a>
               <a
-                href="#contact"
+                href="#placement"
                 className="inline-flex items-center justify-center gap-2 bg-white border-2 border-brand-gray-200 hover:border-brand-primary text-brand-navy font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:shadow-lg text-base"
               >
-                Book Free Career Counseling
+                Pay After Placement
               </a>
             </motion.div>
           </div>

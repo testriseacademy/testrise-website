@@ -41,18 +41,18 @@ export default function FinalCTA() {
             className="flex flex-col sm:flex-row gap-4 justify-center mt-10"
           >
             <a
-              href="/apply"
+              href="#placement"
               className="inline-flex items-center justify-center gap-2 bg-brand-primary hover:bg-brand-primary-dark text-white font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-brand-primary/25 text-base active:scale-[0.98]"
             >
-              Apply Now
+              Explore Pay After Placement
               <ArrowRight className="w-5 h-5" />
             </a>
             <a
-              href="#contact"
+              href="tel:+919999999999"
               className="inline-flex items-center justify-center gap-2 bg-white border-2 border-brand-gray-200 hover:border-brand-primary text-brand-navy font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:shadow-lg text-base"
             >
               <Phone className="w-5 h-5" />
-              Submit Inquiry
+              Call: +91-99999-99999
             </a>
           </motion.div>
 

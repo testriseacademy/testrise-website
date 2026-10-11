@@ -5,10 +5,9 @@ import { Share2, Globe, Video, MessageSquare } from "lucide-react";
 
 const quickLinks = [
   { label: "Home", href: "/#home" },
-  { label: "Courses", href: "/#courses" },
-  { label: "Placement", href: "/#placement" },
-  { label: "About", href: "/#about" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Pay After Placement", href: "/#placement" },
+  { label: "About Us", href: "/#about" },
+  { label: "FAQ", href: "/#faq" },
   { label: "Referral Program 🎁", href: "/refer" },
 ];
 
