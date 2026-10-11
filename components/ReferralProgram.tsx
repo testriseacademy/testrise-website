@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Gift, Share2, UserCheck, Wallet, CheckCircle2, ArrowRight } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 export default function ReferralProgram() {
   const [submitted, setSubmitted] = useState(false);
@@ -14,9 +15,22 @@ export default function ReferralProgram() {
     course: "Software Testing Masters",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
+    try {
+      await supabase.from("referrals").insert([
+        {
+          referrer_name: formData.referrerName,
+          referrer_phone: formData.referrerPhone,
+          friend_name: formData.friendName,
+          friend_phone: formData.friendPhone,
+          course_interested: formData.course,
+        },
+      ]);
+    } catch (err) {
+      console.error("Referral insert error:", err);
+    }
     setTimeout(() => {
       setSubmitted(false);
       setFormData({

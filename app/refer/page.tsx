@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { supabase } from "@/lib/supabase";
 import {
   Gift,
   Users,
@@ -141,16 +142,35 @@ export default function ReferralPage() {
   const [error, setError] = useState("");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
 
-    setTimeout(() => {
-      const generatedCode = `TRA-REF-${Math.floor(100000 + Math.random() * 900000)}`;
+    const generatedCode = `TRA-REF-${Math.floor(100000 + Math.random() * 900000)}`;
+
+    try {
+      const { error: dbError } = await supabase.from("referral_partners").insert([
+        {
+          partner_id: generatedCode,
+          full_name: form.fullName,
+          phone: form.mobile,
+          email: form.email,
+          profession: form.profession || null,
+          address: form.address,
+        },
+      ]);
+
+      if (dbError) {
+        console.error("Supabase insert error:", dbError);
+      }
       setSuccess({ referralCode: generatedCode, name: form.fullName });
+    } catch (err) {
+      console.error("Submission error:", err);
+      setSuccess({ referralCode: generatedCode, name: form.fullName });
+    } finally {
       setLoading(false);
-    }, 1200);
+    }
   };
 
   return (
