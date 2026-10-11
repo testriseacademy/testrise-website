@@ -2,10 +2,23 @@ import nodemailer from "nodemailer";
 import { formatRollNumber } from "./google-sheets";
 
 function getTransporter() {
-  const host = process.env.SMTP_HOST || "smtp.hostinger.com";
-  const port = parseInt(process.env.SMTP_PORT || "465");
-  const user = process.env.SMTP_USER || "info@testriseacademy.com";
+  const user = process.env.SMTP_USER || "";
   const pass = process.env.SMTP_PASS || "";
+
+  // If using Gmail directly
+  if (user.endsWith("@gmail.com")) {
+    return nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user,
+        pass,
+      },
+    });
+  }
+
+  // Fallback SMTP
+  const host = process.env.SMTP_HOST || "smtp.gmail.com";
+  const port = parseInt(process.env.SMTP_PORT || "465");
 
   return nodemailer.createTransport({
     host,
@@ -81,6 +94,31 @@ export async function sendRegistrationEmails(studentData: {
       subject: `Application Recorded (${formattedRoll}) - Test Rise Academy`,
       html: candidateHtml,
     });
+
+    // Also notify mentor/admin directly on their Gmail
+    if (process.env.SMTP_USER) {
+      await transporter.sendMail({
+        from: `"Test Rise Portal" <${process.env.SMTP_USER}>`,
+        to: process.env.SMTP_USER,
+        subject: `🚨 New Application: ${studentData.fullName} (${formattedRoll})`,
+        html: `
+          <div style="font-family: sans-serif; padding: 20px; color: #0f172a;">
+            <h3 style="color: #047857;">New Student Application Received!</h3>
+            <p><strong>Candidate:</strong> ${studentData.fullName}</p>
+            <p><strong>Email:</strong> ${studentData.email}</p>
+            <p><strong>Mobile:</strong> <a href="tel:${studentData.mobile}">${studentData.mobile}</a></p>
+            <p><strong>Location:</strong> ${studentData.address || "Online"}</p>
+            <p><strong>Qualification:</strong> ${studentData.qualification} (${studentData.currentStatus})</p>
+            <p><strong>Roll Number:</strong> <span style="font-family: monospace; font-weight: bold; color: #047857;">${formattedRoll}</span></p>
+            <p style="margin-top: 20px;">
+              <a href="https://testriseacademy.com/lms/mentor" style="background: #10b981; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold;">
+                Open Mentor Panel
+              </a>
+            </p>
+          </div>
+        `,
+      });
+    }
   } catch (err) {
     console.error("sendRegistrationEmails error:", err);
   }
