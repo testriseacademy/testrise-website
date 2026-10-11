@@ -26,29 +26,31 @@ function LoginForm() {
     setLoading(true);
 
     try {
-      const { data, error: authError } = await supabase.auth.signInWithPassword({
-        email: email.trim(),
-        password,
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim(), password }),
       });
 
-      if (authError) {
-        throw authError;
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Login failed. Please try again.");
       }
 
       setSuccess(true);
       setTimeout(() => {
-        router.push(redirectUrl);
-      }, 1000);
+        if (data.user?.role === "mentor" || data.user?.role === "admin") {
+          router.push("/lms/mentor");
+        } else {
+          router.push(redirectUrl);
+        }
+      }, 800);
     } catch (err: unknown) {
       const message =
         err instanceof Error
           ? err.message
           : "Invalid email or password. Please check your credentials.";
-      setError(
-        message.includes("Invalid login credentials")
-          ? "Invalid email or password. Please check your credentials or contact your mentor."
-          : message
-      );
+      setError(message);
       setLoading(false);
     }
   };

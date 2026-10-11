@@ -1,0 +1,57 @@
+import { redirect } from "next/navigation";
+import { getSession } from "@/lib/auth";
+import {
+  getAllCourses,
+  getModules,
+  getLessons,
+  getStudentProgress,
+} from "@/lib/google-sheets";
+import LMSNavbar from "@/components/LMSNavbar";
+import CoursePlayerClient from "./CoursePlayerClient";
+
+export const dynamic = "force-dynamic";
+
+interface PageProps {
+  params: Promise<{ courseId: string }>;
+}
+
+export default async function CourseDetailPage({ params }: PageProps) {
+  const { courseId } = await params;
+  const session = await getSession();
+
+  if (!session) {
+    redirect(`/lms/login?redirect=/lms/course/${courseId}`);
+  }
+
+  const allCourses = await getAllCourses();
+  const course = allCourses.find((c) => c.courseId === courseId);
+
+  if (!course) {
+    redirect("/lms/dashboard");
+  }
+
+  const modules = await getModules(courseId);
+  const progressRecords = await getStudentProgress(session.email);
+
+  const modulesWithLessons = await Promise.all(
+    modules.map(async (mod) => {
+      const lessons = await getLessons(mod.moduleId);
+      return {
+        ...mod,
+        lessons: lessons.filter((l) => l.status === "Published"),
+      };
+    })
+  );
+
+  return (
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans">
+      <LMSNavbar user={session} />
+      <CoursePlayerClient
+        course={course}
+        modulesWithLessons={modulesWithLessons}
+        initialProgress={progressRecords}
+        userEmail={session.email}
+      />
+    </div>
+  );
+}

@@ -76,7 +76,7 @@ export default function Header() {
             <span>+91-99999-99999</span>
           </a>
           <a
-            href="/#placement"
+            href="/apply"
             className="bg-brand-primary hover:bg-brand-primary-dark text-white font-semibold text-sm px-6 py-2.5 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-brand-primary/25 active:scale-[0.98]"
           >
             Apply Now
@@ -129,7 +129,7 @@ export default function Header() {
                   +91-99999-99999
                 </a>
                 <a
-                  href="/#placement"
+                  href="/apply"
                   onClick={() => setMobileOpen(false)}
                   className="bg-brand-primary text-white font-semibold text-center py-3 rounded-xl hover:bg-brand-primary-dark transition-colors"
                 >
