@@ -49,7 +49,7 @@ const courses = [
     title: "Software Manual Testing & Backend Testing",
     tagline: "Best Software Testing Course in Pune — Start Your QA Career",
     description:
-      "Complete Manual Testing training covering SDLC, STLC, test case design, defect management, backend testing with SQL, and real project experience. Perfect for freshers and graduates.",
+      "Complete Manual Testing training covering SDLC, STLC, test case design, defect management, backend testing with SQL, and real project experience. Serves as the complete foundation with specialized tracks in Java Selenium, Python Automation, and ETL Testing.",
     duration: "8–10 Weeks",
     level: "Beginner — No experience needed",
     tools: ["JIRA", "SQL", "Test Management Tools", "Git"],
@@ -118,6 +118,34 @@ const courses = [
       "Pytest framework & fixtures",
       "Data-driven testing",
       "CI/CD integration with Jenkins",
+    ],
+  },
+  {
+    slug: "java-selenium",
+    icon: Code2,
+    title: "Java Selenium Automation Testing & Cucumber BDD",
+    tagline:
+      "Best Java Selenium Course in Pune — Core Java, TestNG, POM & BDD",
+    description:
+      "Master Automation Testing with Java, Selenium WebDriver 4, TestNG, Page Object Model (POM), Cucumber BDD, and Jenkins CI/CD. The highest-demand skill for QA and SDET positions in Pune IT hubs.",
+    duration: "10–12 Weeks",
+    level: "Beginner to Advanced",
+    tools: [
+      "Core Java",
+      "Selenium WebDriver",
+      "TestNG",
+      "Maven",
+      "Cucumber BDD",
+      "Jenkins",
+      "Git",
+    ],
+    topics: [
+      "Core Java & OOPs for Testers",
+      "Selenium WebDriver 4 & Advanced Locators",
+      "Page Object Model (POM) Design Pattern",
+      "TestNG Framework & Data-Driven Testing",
+      "Cucumber BDD & Feature File Implementation",
+      "CI/CD Build Automation with Jenkins",
     ],
   },
   {

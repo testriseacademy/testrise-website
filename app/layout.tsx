@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     "Teamcenter AWC training Pune",
     "BMIDE course Pune",
     "Software Testing course in Pune",
+    "Java Selenium course in Pune",
+    "Java Selenium training Pune",
+    "Selenium WebDriver course Pune",
     "Software Testing training Pune",
     "Best Software Testing institute Pune",
     "Manual Testing course Pune",
@@ -95,18 +98,23 @@ const organizationSchema = {
   description:
     "Best Software Testing Training Institute in Pune offering Manual Testing, API Testing, ETL Testing & Python Automation courses with Pay After Placement model.",
   foundingDate: "2024",
+  telephone: "+91-95616-43054",
+  email: "info@testriseacademy.com",
   areaServed: [
     { "@type": "City", name: "Pune" },
     { "@type": "Country", name: "India" },
   ],
   address: {
     "@type": "PostalAddress",
+    streetAddress: "Office No. A-614, 6th Floor, Supreme Headquarters, Baner",
     addressLocality: "Pune",
+    postalCode: "411045",
     addressRegion: "Maharashtra",
     addressCountry: "IN",
   },
   contactPoint: {
     "@type": "ContactPoint",
+    telephone: "+91-95616-43054",
     contactType: "admissions",
     availableLanguage: ["English", "Hindi", "Marathi"],
   },
@@ -120,6 +128,7 @@ const organizationSchema = {
         name: "Software Testing Training Programs",
         itemListElement: [
           "Software Manual Testing & Backend Testing",
+          "Java Selenium Automation Testing (TestNG, POM, Cucumber)",
           "API Testing (Postman, REST Assured)",
           "ETL Testing (Data Warehouse Testing, SQL)",
           "Python Automation Testing (Selenium, Pytest)",
@@ -247,6 +256,33 @@ const courseSchemas = [
       "No prior programming experience required. Python taught from basics.",
     teaches:
       "Python, Selenium WebDriver, Pytest, Test Automation Framework, POM Design Pattern, Data-Driven Testing, CI/CD basics",
+    inLanguage: "en",
+    hasCourseInstance: {
+      "@type": "CourseInstance",
+      courseMode: "Online",
+      courseWorkload: "PT45H",
+    },
+    offers: {
+      "@type": "Offer",
+      category: "Pay After Placement",
+      price: "0",
+      priceCurrency: "INR",
+      description: "Pay After Placement — No upfront fees.",
+      availability: "https://schema.org/InStock",
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: "Java Selenium Automation Testing Course",
+    description:
+      "Master Automation Testing with Core Java, Selenium WebDriver 4, TestNG, Page Object Model (POM), Cucumber BDD, and Jenkins CI/CD in Pune. Pay After Placement model.",
+    provider: { "@id": `${SITE_URL}/#organization` },
+    url: `${SITE_URL}/courses/java-selenium`,
+    educationalLevel: "Intermediate",
+    coursePrerequisites: "Basic programming understanding helpful but taught from scratch.",
+    teaches:
+      "Core Java, Selenium WebDriver, TestNG, POM, Cucumber BDD, Jenkins, Maven, Git, Automation Framework Design",
     inLanguage: "en",
     hasCourseInstance: {
       "@type": "CourseInstance",

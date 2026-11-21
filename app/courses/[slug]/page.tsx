@@ -498,6 +498,102 @@ const coursesData: Record<string, CourseData> = {
     schemaDescription:
       "Siemens Teamcenter PLM training course in Pune covering 4-tier architecture, BMIDE data modeling, workflow automation, Active Workspace (AWC), and administration. Pay After Placement model.",
   },
+  "java-selenium": {
+    slug: "java-selenium",
+    icon: Code2,
+    title: "Java Selenium Automation Testing Course",
+    metaTitle:
+      "Java Selenium Automation Testing Course in Pune | Pay After Placement",
+    metaDescription:
+      "Best Java Selenium course in Pune. Master Core Java, Selenium WebDriver, TestNG, Maven, POM framework, Cucumber BDD & Jenkins. Pay After Placement. Enroll now!",
+    keywords: [
+      "Java Selenium course in Pune",
+      "Java Selenium training Pune",
+      "Automation Testing with Java Pune",
+      "Selenium WebDriver Java course",
+      "TestNG Cucumber training Pune",
+      "Best Selenium Java institute Pune",
+      "SDET Java course Pune",
+      "Pay After Placement Automation Testing",
+      "Selenium Java course with placement",
+    ],
+    heroTitle: "Java Selenium Automation",
+    heroHighlight: "Testing in Pune",
+    tagline:
+      "Master Core Java, Selenium WebDriver, TestNG & Cucumber BDD — Pay After Placement",
+    description:
+      "Launch your career as an Automation Test Engineer / SDET. Learn Core Java from fundamentals to advanced OOPs, master Selenium WebDriver 4, design industry-grade Page Object Model (POM) frameworks, integrate Cucumber BDD, and automate with Jenkins CI/CD. The most in-demand testing skill in Pune IT companies.",
+    duration: "10–12 Weeks",
+    level: "Beginner to Advanced",
+    mode: "100% Online — Live Classes",
+    tools: [
+      "Core Java",
+      "Selenium WebDriver",
+      "TestNG",
+      "Maven",
+      "Cucumber BDD",
+      "Jenkins",
+      "Git",
+      "Allure Reports",
+    ],
+    syllabus: [
+      {
+        module: "Core Java for Automation Testers",
+        topics: [
+          "Java basics, variables, datatypes & operators",
+          "Object-Oriented Programming (Inheritance, Polymorphism, Abstraction, Encapsulation)",
+          "Java Collections Framework (List, Set, Map)",
+          "Exception Handling & File I/O (Apache POI for Excel)",
+          "Java Streams & Best Practices for testing",
+        ],
+      },
+      {
+        module: "Selenium WebDriver Deep Dive",
+        topics: [
+          "Selenium Architecture & WebDriver 4 setup",
+          "Advanced Locators (XPath axes, dynamic CSS selectors)",
+          "Handling WebElements, Dropdowns, Checkboxes & Radio buttons",
+          "Synchronization (Implicit, Explicit, Fluent Waits)",
+          "Handling Multiple Windows, IFrames, Alerts & JavaScript Executor",
+        ],
+      },
+      {
+        module: "Test Frameworks & POM Design",
+        topics: [
+          "TestNG Annotations, Assertions, Parallel Execution & Groups",
+          "Page Object Model (POM) with Page Factory",
+          "Data-Driven Testing using Excel / JSON",
+          "Extent Reports & Allure Reporting integration",
+          "Reusable Utility functions & Log4j logging",
+        ],
+      },
+      {
+        module: "BDD Cucumber & CI/CD Pipeline",
+        topics: [
+          "Behavior Driven Development (BDD) overview",
+          "Writing Feature Files using Gherkin syntax",
+          "Step Definitions & Test Runner configuration",
+          "Git & GitHub version control for test frameworks",
+          "Jenkins CI/CD integration for nightly automated test runs",
+        ],
+      },
+    ],
+    whoIsThisFor: [
+      "Manual Testers wanting to transition to Automation / SDET",
+      "Fresh engineering graduates (BE/BTech, BCA, MCA, BSc IT)",
+      "Non-IT professionals with basic logic wanting IT jobs",
+      "Experienced testers wanting higher pay packages (₹6–15+ LPA)",
+    ],
+    careerRoles: [
+      "Java Automation Test Engineer",
+      "SDET (Software Development Engineer in Test)",
+      "QA Automation Lead",
+      "Selenium Specialist",
+      "Senior QA Engineer",
+    ],
+    schemaDescription:
+      "Java Selenium Automation Testing training course in Pune covering Core Java, Selenium WebDriver, TestNG, POM framework, Cucumber BDD, and CI/CD. Pay After Placement model.",
+  },
 };
 
 // ── Generate Static Params ─────────────────────────────────────────────

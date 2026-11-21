@@ -232,6 +232,9 @@ export default function ApplyPage() {
                   <option value="Software Manual Testing & Backend Testing">
                     Software Manual Testing &amp; Backend Testing
                   </option>
+                  <option value="Java Selenium Automation Testing (TestNG, Cucumber)">
+                    Java Selenium Automation Testing (TestNG, Cucumber)
+                  </option>
                   <option value="Siemens Teamcenter PLM (Admin + BMIDE + AWC)">
                     Siemens Teamcenter PLM (Admin + BMIDE + AWC)
                   </option>

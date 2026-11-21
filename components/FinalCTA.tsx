@@ -48,11 +48,11 @@ export default function FinalCTA() {
               <ArrowRight className="w-5 h-5" />
             </a>
             <a
-              href="tel:+919999999999"
+              href="tel:+919561643054"
               className="inline-flex items-center justify-center gap-2 bg-white border-2 border-brand-gray-200 hover:border-brand-primary text-brand-navy font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:shadow-lg text-base"
             >
               <Phone className="w-5 h-5" />
-              Call: +91-99999-99999
+              Call: +91 95616 43054
             </a>
           </motion.div>
 

@@ -502,8 +502,12 @@ export default function ReferralPage() {
               <ArrowRight className="w-5 h-5" />
             </a>
             <div className="mt-8 flex flex-col sm:flex-row justify-center gap-6 text-sm text-white/50">
-              <span className="flex items-center justify-center gap-2"><Phone className="w-4 h-4 text-brand-primary-light" /> +91 99999 99999</span>
-              <span className="flex items-center justify-center gap-2"><Mail className="w-4 h-4 text-brand-primary-light" /> info@testriseacademy.com</span>
+              <a href="tel:+919561643054" className="flex items-center justify-center gap-2 hover:text-white transition-colors">
+                <Phone className="w-4 h-4 text-brand-primary-light" /> +91 95616 43054
+              </a>
+              <a href="mailto:info@testriseacademy.com" className="flex items-center justify-center gap-2 hover:text-white transition-colors">
+                <Mail className="w-4 h-4 text-brand-primary-light" /> info@testriseacademy.com
+              </a>
             </div>
           </div>
         </div>

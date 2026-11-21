@@ -7,6 +7,7 @@ const quickLinks = [
   { label: "Home", href: "/#home" },
   { label: "All Courses", href: "/courses" },
   { label: "Software Testing Course", href: "/courses/software-testing" },
+  { label: "Java Selenium Course", href: "/courses/java-selenium" },
   { label: "Teamcenter PLM Course", href: "/courses/teamcenter-plm" },
   { label: "ETL Testing Course", href: "/courses/etl-testing" },
   { label: "API Testing Course", href: "/courses/api-testing" },
@@ -110,11 +111,21 @@ export default function Footer() {
             </ul>
             <div className="mt-8">
               <h4 className="text-white font-semibold text-sm mb-3 tracking-wide">
-                Location &amp; Contact
+                Campus &amp; Office
               </h4>
-              <p className="text-white/80 text-sm font-medium">Pune, Maharashtra, India</p>
-              <p className="text-white/40 text-xs mt-1">Live Online Batches Available Across India</p>
-              <p className="text-white/50 text-sm mt-3">+91-99999-99999</p>
+              <p className="text-white/80 text-sm font-medium leading-relaxed">
+                Office No. A-614, 6th Floor,<br />
+                Supreme Headquarters, Baner,<br />
+                Pune, Maharashtra - 411045
+              </p>
+              <p className="text-white/50 text-sm mt-3">
+                <a
+                  href="tel:+919561643054"
+                  className="hover:text-white transition-colors"
+                >
+                  +91 95616 43054
+                </a>
+              </p>
               <p className="text-white/50 text-sm mt-1">
                 info@testriseacademy.com
               </p>

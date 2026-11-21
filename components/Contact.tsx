@@ -9,8 +9,8 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Call Us",
-    lines: ["+91-99999-99999"],
-    href: "tel:+919999999999",
+    lines: ["+91 95616 43054"],
+    href: "tel:+919561643054",
   },
   {
     icon: Mail,
@@ -20,14 +20,17 @@ const contactInfo = [
   },
   {
     icon: MapPin,
-    title: "Location",
-    lines: ["Online Training", "Learn from Anywhere"],
-    href: null,
+    title: "Pune Campus / Office",
+    lines: [
+      "Office No. A-614, 6th Floor, Supreme Headquarters",
+      "Baner, Pune, Maharashtra - 411045",
+    ],
+    href: "https://maps.google.com/?q=Supreme+Headquarters+Baner+Pune",
   },
   {
     icon: Clock,
     title: "Business Hours",
-    lines: ["Monday – Saturday", "10 AM – 7 PM"],
+    lines: ["Monday – Saturday", "9:30 AM – 7:30 PM"],
     href: null,
   },
 ];
