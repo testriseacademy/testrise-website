@@ -54,6 +54,16 @@ const faqs = [
     answer:
       "Always welcome! We provide continuous career support even after placement. Whether you need help switching jobs, career advice, or upskilling guidance — our mentors are always available to help.",
   },
+  {
+    question: "What is the best Software Testing institute in Pune?",
+    answer:
+      "Test Rise Academy is recognized among the best Software Testing training institutes in Pune, offering comprehensive courses in Manual Testing, API Testing, ETL Testing, and Python Automation with our unique Pay After Placement model where you pay only after securing a job.",
+  },
+  {
+    question: "What is the average salary of a Software Tester in Pune?",
+    answer:
+      "Freshers in Software Testing typically start at ₹3 to ₹4.5 LPA in Pune. Experienced QA engineers and Automation/ETL testers earn between ₹6 to ₹15+ LPA depending on skills and frameworks mastered.",
+  },
 ];
 
 export default function FAQ() {

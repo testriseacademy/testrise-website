@@ -43,7 +43,7 @@ export default function HeroSection() {
               className="inline-flex items-center gap-2 bg-brand-primary/[0.08] text-brand-primary rounded-full px-4 py-2 text-sm font-medium mb-8"
             >
               <span className="w-2 h-2 bg-brand-primary rounded-full animate-pulse" />
-              Any Graduate → Testing Course → IT Career
+              #1 Software Testing &amp; ETL Training in Pune · Pay After Placement
             </motion.div>
 
             {/* Headline */}
@@ -53,9 +53,7 @@ export default function HeroSection() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-brand-navy leading-[1.1] tracking-tight mb-6"
             >
-              Become a Certified{" "}
-              <span className="text-brand-primary">Software Testing</span>{" "}
-              Professional
+              Master <span className="text-brand-primary">Software Testing</span> &amp; ETL in Pune
             </motion.h1>
 
             {/* Subheadline */}
@@ -65,8 +63,7 @@ export default function HeroSection() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg md:text-xl text-brand-gray-500 leading-relaxed mb-8 max-w-xl"
             >
-              Launch your IT career with India&apos;s most practical Software
-              Testing Training. Master Manual, API, ETL &amp; Automation Testing.
+              Launch your IT career with Pune&apos;s leading Software Testing Institute. Master Manual, API, ETL &amp; Python Automation Testing. Pay After Placement — zero upfront fees.
             </motion.p>
 
             {/* Badge Grid */}
@@ -97,10 +94,10 @@ export default function HeroSection() {
               className="flex flex-col sm:flex-row gap-4"
             >
               <a
-                href="/lms/login"
+                href="/courses"
                 className="inline-flex items-center justify-center gap-2 bg-brand-primary hover:bg-brand-primary-dark text-white font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-brand-primary/25 active:scale-[0.98] text-base"
               >
-                Start Learning
+                Explore Courses
                 <ArrowRight className="w-5 h-5" />
               </a>
               <a

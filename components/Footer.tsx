@@ -5,8 +5,12 @@ import { Share2, Globe, Video, MessageSquare } from "lucide-react";
 
 const quickLinks = [
   { label: "Home", href: "/#home" },
+  { label: "All Courses", href: "/courses" },
+  { label: "Software Testing Course", href: "/courses/software-testing" },
+  { label: "ETL Testing Course", href: "/courses/etl-testing" },
+  { label: "API Testing Course", href: "/courses/api-testing" },
+  { label: "Python Automation", href: "/courses/python-automation" },
   { label: "Pay After Placement", href: "/#placement" },
-  { label: "About Us", href: "/#about" },
   { label: "FAQ", href: "/#faq" },
   { label: "Referral Program 🎁", href: "/refer" },
 ];
@@ -48,8 +52,8 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-white/50 text-sm leading-relaxed max-w-sm">
-              India&apos;s practical Software Testing Training Academy. Helping
-              aspiring testers transition into high-paying QA careers with
+              Pune&apos;s leading Software Testing Training Academy. Helping
+              aspiring testers transition into high-paying QA &amp; ETL careers with
               hands-on training and Pay After Placement.
             </p>
             {/* Social */}
@@ -105,9 +109,11 @@ export default function Footer() {
             </ul>
             <div className="mt-8">
               <h4 className="text-white font-semibold text-sm mb-3 tracking-wide">
-                Contact
+                Location &amp; Contact
               </h4>
-              <p className="text-white/50 text-sm">+91-99999-99999</p>
+              <p className="text-white/80 text-sm font-medium">Pune, Maharashtra, India</p>
+              <p className="text-white/40 text-xs mt-1">Live Online Batches Available Across India</p>
+              <p className="text-white/50 text-sm mt-3">+91-99999-99999</p>
               <p className="text-white/50 text-sm mt-1">
                 info@testriseacademy.com
               </p>
