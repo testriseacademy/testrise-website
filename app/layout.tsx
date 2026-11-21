@@ -77,8 +77,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    // Add your Google Search Console verification code here
-    // google: "your-verification-code",
+    google: "AYfODfeiNjBDJYIm9INQudZSd8JWHWcz0jVjDcMeozA",
   },
   category: "Education",
 };
@@ -400,6 +399,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <head>
+        <meta
+          name="google-site-verification"
+          content="AYfODfeiNjBDJYIm9INQudZSd8JWHWcz0jVjDcMeozA"
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
