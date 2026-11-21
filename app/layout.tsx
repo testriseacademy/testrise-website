@@ -7,12 +7,17 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default:
-      "Software Testing Training in Pune | Pay After Placement | Test Rise Academy",
+      "Software Testing & Siemens Teamcenter PLM Training in Pune | Pay After Placement | Test Rise Academy",
     template: "%s | Test Rise Academy",
   },
   description:
-    "Best Software Testing Training Institute in Pune. Learn Manual Testing, API Testing, ETL Testing & Python Automation. Pay After Placement — No Upfront Fees. 95% Placement Rate. Online Classes. Enroll Now!",
+    "Best Software Testing & Siemens Teamcenter PLM Training Institute in Pune. Learn Manual Testing, API, ETL, Python Automation & Teamcenter PLM (Admin, BMIDE, AWC). Pay After Placement — No Upfront Fees. 95% Placement Rate. Enroll Now!",
   keywords: [
+    "Teamcenter PLM course in Pune",
+    "Siemens Teamcenter training Pune",
+    "PLM training institute Pune",
+    "Teamcenter AWC training Pune",
+    "BMIDE course Pune",
     "Software Testing course in Pune",
     "Software Testing training Pune",
     "Best Software Testing institute Pune",
@@ -24,13 +29,8 @@ export const metadata: Metadata = {
     "QA training institute Pune",
     "Pay After Placement IT course",
     "Pay After Placement testing course Pune",
+    "Pay After Placement PLM course",
     "Software Testing career",
-    "QA Engineer training",
-    "Software Testing online course",
-    "ISTQB training Pune",
-    "Software Testing course for freshers",
-    "IT course after graduation Pune",
-    "Software Testing placement guarantee",
     "Test Rise Academy",
   ],
   authors: [{ name: "Test Rise Academy", url: SITE_URL }],
@@ -123,6 +123,7 @@ const organizationSchema = {
           "API Testing (Postman, REST Assured)",
           "ETL Testing (Data Warehouse Testing, SQL)",
           "Python Automation Testing (Selenium, Pytest)",
+          "Siemens Teamcenter PLM (Admin, BMIDE, AWC)",
         ],
       },
     ],
@@ -261,6 +262,34 @@ const courseSchemas = [
       availability: "https://schema.org/InStock",
     },
   },
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: "Siemens Teamcenter PLM Course (Admin + BMIDE + AWC)",
+    description:
+      "Comprehensive Siemens Teamcenter PLM course covering 4-tier architecture, BMIDE data modeling, workflow automation, Active Workspace (AWC), and administration in Pune with Pay After Placement.",
+    provider: { "@id": `${SITE_URL}/#organization` },
+    url: `${SITE_URL}/courses/teamcenter-plm`,
+    educationalLevel: "Intermediate",
+    coursePrerequisites:
+      "Engineering graduates (Mechanical, CS, IT, Production) or IT freshers.",
+    teaches:
+      "Siemens Teamcenter, Active Workspace AWC, BMIDE Data Modeling, Workflow Designer, Access Manager, ITK basics",
+    inLanguage: "en",
+    hasCourseInstance: {
+      "@type": "CourseInstance",
+      courseMode: "Online",
+      courseWorkload: "PT50H",
+    },
+    offers: {
+      "@type": "Offer",
+      category: "Pay After Placement",
+      price: "0",
+      priceCurrency: "INR",
+      description: "Pay After Placement — No upfront fees.",
+      availability: "https://schema.org/InStock",
+    },
+  },
 ];
 
 const faqSchema = {
@@ -353,6 +382,14 @@ const faqSchema = {
       acceptedAnswer: {
         "@type": "Answer",
         text: "Freshers in Software Testing can expect ₹3–4.5 LPA in Pune. With 2–3 years of experience, testers earn ₹5–8 LPA. Automation testers and SDET roles command ₹8–15+ LPA. Test Rise Academy's Pay After Placement model ensures you start earning before paying your fees.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Does Test Rise Academy provide Siemens Teamcenter PLM training in Pune?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes! Test Rise Academy offers industry-level Siemens Teamcenter PLM training in Pune covering BMIDE Data Modeling, Workflow Designer, Active Workspace (AWC), Administration, and ITK basics with Pay After Placement.",
       },
     },
   ],

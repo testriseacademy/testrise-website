@@ -5,6 +5,7 @@ import {
   Settings,
   Database,
   Code2,
+  Layers,
   CheckCircle2,
   ArrowRight,
   ArrowLeft,
@@ -399,6 +400,103 @@ const coursesData: Record<string, CourseData> = {
     ],
     schemaDescription:
       "Python Automation Testing course in Pune covering Selenium WebDriver, Pytest, POM framework, data-driven testing, and CI/CD integration. Pay After Placement.",
+  },
+  "teamcenter-plm": {
+    slug: "teamcenter-plm",
+    icon: Layers,
+    title: "Siemens Teamcenter PLM (Admin + BMIDE + AWC)",
+    metaTitle:
+      "Siemens Teamcenter PLM Course in Pune | Administration & AWC Training | Pay After Placement",
+    metaDescription:
+      "Best Siemens Teamcenter PLM course in Pune. Learn Teamcenter Architecture, BMIDE Data Modeling, Workflow Designer, Active Workspace (AWC) & ITK. Pay After Placement. Enroll now!",
+    keywords: [
+      "Teamcenter PLM course in Pune",
+      "Siemens Teamcenter training Pune",
+      "PLM training institute Pune",
+      "Teamcenter AWC training Pune",
+      "BMIDE course Pune",
+      "Teamcenter Admin course Pune",
+      "Siemens PLM course with placement",
+      "Pay After Placement PLM course",
+      "Teamcenter customization training",
+      "PLM jobs Pune freshers",
+    ],
+    heroTitle: "Siemens Teamcenter PLM",
+    heroHighlight: "Course in Pune",
+    tagline:
+      "Master Administration, BMIDE & Active Workspace (AWC) — Pay After Placement",
+    description:
+      "Launch your career in Product Lifecycle Management (PLM) with India's most in-depth Siemens Teamcenter course. Learn 4-tier architecture, BMIDE data modeling, workflow automation, Active Workspace Client (AWC), organization management, and ITK customization basics. Huge demand in automotive, aerospace, and IT service companies in Pune.",
+    duration: "10–12 Weeks",
+    level: "Beginner to Intermediate",
+    mode: "100% Online — Live Classes",
+    tools: [
+      "Siemens Teamcenter",
+      "Active Workspace (AWC)",
+      "BMIDE",
+      "Workflow Designer",
+      "Access Manager",
+      "SQL",
+      "ITK / RAC",
+    ],
+    syllabus: [
+      {
+        module: "PLM & Teamcenter Architecture",
+        topics: [
+          "What is PLM & Product Lifecycle stages",
+          "Teamcenter 2-tier vs 4-tier architecture",
+          "Rich Application Client (RAC) overview",
+          "Active Workspace Client (AWC) interface",
+          "Data Organization: Workspace, Folders, Items & Revisions",
+        ],
+      },
+      {
+        module: "Data Modeling with BMIDE",
+        topics: [
+          "BMIDE fundamentals & project setup",
+          "Creating Business Objects (Item, Form, Dataset)",
+          "Properties, Lovs (List of Values) & Naming Rules",
+          "Relation Rules & GRM Rules",
+          "Packaging & deploying BMIDE templates",
+        ],
+      },
+      {
+        module: "Teamcenter Administration & Workflows",
+        topics: [
+          "Organization setup: Groups, Roles & Users",
+          "Access Manager & Rule Tree configuration",
+          "Workflow Designer: Tasks, Handlers & Triggers",
+          "Change Management (ECR, ECO, ECN processes)",
+          "Preferences, Utilities & Volume Management",
+        ],
+      },
+      {
+        module: "AWC & Customization Fundamentals",
+        topics: [
+          "Active Workspace (AWC) architecture & tile configuration",
+          "Declarative UI & Gateway configuration",
+          "ITK (Integration Toolkit) C/C++ basics & server exits",
+          "Teamcenter Integration with CAD (NX, CATIA)",
+          "Real-world automotive/engineering PLM project",
+        ],
+      },
+    ],
+    whoIsThisFor: [
+      "Mechanical, Automobile, Production & Industrial Engineers",
+      "Computer Science & IT graduates entering enterprise software",
+      "CAD/Design engineers wanting to transition to PLM",
+      "Freshers seeking high-demand enterprise IT roles",
+      "Professionals wanting ₹5–15+ LPA career growth",
+    ],
+    careerRoles: [
+      "Teamcenter PLM Administrator",
+      "PLM Consultant / Analyst",
+      "Teamcenter Developer / Customizer",
+      "AWC Specialist",
+      "PLM Support Engineer",
+    ],
+    schemaDescription:
+      "Siemens Teamcenter PLM training course in Pune covering 4-tier architecture, BMIDE data modeling, workflow automation, Active Workspace (AWC), and administration. Pay After Placement model.",
   },
 };
 

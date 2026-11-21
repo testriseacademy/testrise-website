@@ -43,7 +43,7 @@ export default function HeroSection() {
               className="inline-flex items-center gap-2 bg-brand-primary/[0.08] text-brand-primary rounded-full px-4 py-2 text-sm font-medium mb-8"
             >
               <span className="w-2 h-2 bg-brand-primary rounded-full animate-pulse" />
-              #1 Software Testing &amp; ETL Training in Pune · Pay After Placement
+              #1 Software Testing &amp; Teamcenter PLM Training in Pune · Pay After Placement
             </motion.div>
 
             {/* Headline */}
@@ -53,7 +53,7 @@ export default function HeroSection() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-brand-navy leading-[1.1] tracking-tight mb-6"
             >
-              Master <span className="text-brand-primary">Software Testing</span> &amp; ETL in Pune
+              Master <span className="text-brand-primary">Software Testing</span> &amp; Teamcenter PLM
             </motion.h1>
 
             {/* Subheadline */}
@@ -63,7 +63,7 @@ export default function HeroSection() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg md:text-xl text-brand-gray-500 leading-relaxed mb-8 max-w-xl"
             >
-              Launch your IT career with Pune&apos;s leading Software Testing Institute. Master Manual, API, ETL &amp; Python Automation Testing. Pay After Placement — zero upfront fees.
+              Launch your IT career with Pune&apos;s leading training academy. Master Manual, API, ETL, Python Automation &amp; Siemens Teamcenter PLM. Pay After Placement — zero upfront fees.
             </motion.p>
 
             {/* Badge Grid */}

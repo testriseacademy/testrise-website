@@ -64,6 +64,11 @@ const faqs = [
     answer:
       "Freshers in Software Testing typically start at ₹3 to ₹4.5 LPA in Pune. Experienced QA engineers and Automation/ETL testers earn between ₹6 to ₹15+ LPA depending on skills and frameworks mastered.",
   },
+  {
+    question: "Does Test Rise Academy provide Siemens Teamcenter PLM training in Pune?",
+    answer:
+      "Yes! Test Rise Academy offers industry-level Siemens Teamcenter PLM training covering 4-tier architecture, BMIDE Data Modeling, Workflow Designer, Active Workspace (AWC), and Administration with our Pay After Placement model. Mechanical, Production, and CS/IT graduates are eligible.",
+  },
 ];
 
 export default function FAQ() {

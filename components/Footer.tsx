@@ -7,6 +7,7 @@ const quickLinks = [
   { label: "Home", href: "/#home" },
   { label: "All Courses", href: "/courses" },
   { label: "Software Testing Course", href: "/courses/software-testing" },
+  { label: "Teamcenter PLM Course", href: "/courses/teamcenter-plm" },
   { label: "ETL Testing Course", href: "/courses/etl-testing" },
   { label: "API Testing Course", href: "/courses/api-testing" },
   { label: "Python Automation", href: "/courses/python-automation" },
@@ -52,8 +53,8 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-white/50 text-sm leading-relaxed max-w-sm">
-              Pune&apos;s leading Software Testing Training Academy. Helping
-              aspiring testers transition into high-paying QA &amp; ETL careers with
+              Pune&apos;s leading Software Testing &amp; Siemens Teamcenter PLM Training Academy. Helping
+              graduates &amp; professionals transition into high-paying QA, ETL &amp; PLM careers with
               hands-on training and Pay After Placement.
             </p>
             {/* Social */}

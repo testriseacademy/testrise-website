@@ -216,6 +216,41 @@ export default function ApplyPage() {
               </div>
             </div>
 
+            {/* Course Interested In */}
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                Select Course <span className="text-emerald-400">*</span>
+              </label>
+              <div className="relative">
+                <BookOpen className="w-4 h-4 text-slate-500 absolute left-3.5 top-3 pointer-events-none" />
+                <select
+                  value={selectedCourse}
+                  onChange={(e) => setSelectedCourse(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2.5 bg-slate-950/60 border border-slate-800 rounded-xl text-white text-xs focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  disabled={loading || success}
+                >
+                  <option value="Software Manual Testing & Backend Testing">
+                    Software Manual Testing &amp; Backend Testing
+                  </option>
+                  <option value="Siemens Teamcenter PLM (Admin + BMIDE + AWC)">
+                    Siemens Teamcenter PLM (Admin + BMIDE + AWC)
+                  </option>
+                  <option value="ETL Testing (Data Warehouse & SQL)">
+                    ETL Testing (Data Warehouse &amp; SQL)
+                  </option>
+                  <option value="Python Automation Testing (Selenium & Pytest)">
+                    Python Automation Testing (Selenium &amp; Pytest)
+                  </option>
+                  <option value="API Testing (Postman & REST Assured)">
+                    API Testing (Postman &amp; REST Assured)
+                  </option>
+                  <option value="Complete Testing & PLM Masterclass">
+                    Complete Testing &amp; PLM Masterclass
+                  </option>
+                </select>
+              </div>
+            </div>
+
             {/* City & Qualification */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>

@@ -6,6 +6,7 @@ import {
   Code2,
   Database,
   Settings,
+  Layers,
   ArrowRight,
   CheckCircle2,
   GraduationCap,
@@ -15,16 +16,18 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Software Testing Courses in Pune — Pay After Placement",
+  title: "Software Testing & Teamcenter PLM Courses in Pune — Pay After Placement",
   description:
-    "Explore our Software Testing courses: Manual Testing, API Testing, ETL Testing, Python Automation. All courses with Pay After Placement. Best testing training institute in Pune. Enroll now!",
+    "Explore our industry-ready courses: Siemens Teamcenter PLM, Manual Testing, API Testing, ETL Testing, Python Automation. All courses with Pay After Placement in Pune. Enroll now!",
   keywords: [
+    "Teamcenter PLM course Pune",
+    "Siemens Teamcenter training Pune",
     "Software Testing courses Pune",
     "Manual Testing course Pune",
     "API Testing course Pune",
     "ETL Testing course Pune",
     "Python Automation Testing course",
-    "Selenium course Pune",
+    "PLM training institute Pune",
     "Best Software Testing courses in Pune",
     "Pay After Placement courses",
   ],
@@ -32,9 +35,9 @@ export const metadata: Metadata = {
     canonical: "https://testriseacademy.com/courses",
   },
   openGraph: {
-    title: "Software Testing Courses — Pay After Placement | Test Rise Academy",
+    title: "Software Testing & Teamcenter PLM Courses — Pay After Placement | Test Rise Academy",
     description:
-      "Manual Testing, API Testing, ETL Testing, Python Automation. All courses with Pay After Placement model. No prior experience needed.",
+      "Siemens Teamcenter PLM, Manual Testing, API Testing, ETL Testing, Python Automation. All courses with Pay After Placement model in Pune.",
     url: "https://testriseacademy.com/courses",
   },
 };
@@ -117,6 +120,33 @@ const courses = [
       "CI/CD integration with Jenkins",
     ],
   },
+  {
+    slug: "teamcenter-plm",
+    icon: Layers,
+    title: "Siemens Teamcenter PLM (Admin + BMIDE + AWC)",
+    tagline:
+      "Best Siemens Teamcenter PLM Course in Pune — Administration & Customization",
+    description:
+      "Comprehensive Siemens Teamcenter PLM training covering 4-tier architecture, BMIDE data modeling, workflow designer, Active Workspace Client (AWC), ITK basics, and access control. High-paying niche in automotive & IT.",
+    duration: "10–12 Weeks",
+    level: "Beginner to Intermediate",
+    tools: [
+      "Siemens Teamcenter",
+      "Active Workspace (AWC)",
+      "BMIDE",
+      "Workflow Designer",
+      "SQL",
+      "ITK / RAC",
+    ],
+    topics: [
+      "Teamcenter Architecture & 4-tier setup",
+      "BMIDE Data Modeling (Items, Datasets, Relations)",
+      "Workflow Designer & Process Automation",
+      "Active Workspace Client (AWC) configuration",
+      "Access Manager (AM Rule Tree) & Organization",
+      "Real-world automotive/aerospace PLM project",
+    ],
+  },
 ];
 
 export default function CoursesPage() {
@@ -137,7 +167,7 @@ export default function CoursesPage() {
             <GraduationCap className="w-4 h-4" /> Our Training Programs
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight">
-            Software Testing{" "}
+            Testing &amp; Teamcenter PLM{" "}
             <span className="text-brand-primary-light">Courses in Pune</span>
           </h1>
           <p className="text-white/60 text-lg md:text-xl mt-6 max-w-2xl mx-auto leading-relaxed">

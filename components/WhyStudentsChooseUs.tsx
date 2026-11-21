@@ -5,7 +5,7 @@ import {
   Bug,
   Settings,
   Server,
-  TestTube,
+  Layers,
   Code2,
   Database,
   FileSearch,
@@ -14,11 +14,11 @@ import {
 
 const expertise = [
   { icon: Bug, label: "Manual Testing" },
-  { icon: Server, label: "Backend Testing" },
+  { icon: Layers, label: "Siemens Teamcenter PLM" },
   { icon: Settings, label: "API Testing" },
   { icon: Database, label: "ETL Testing" },
   { icon: Code2, label: "Automation Testing" },
-  { icon: TestTube, label: "Performance Testing" },
+  { icon: Server, label: "PLM BMIDE & AWC" },
   { icon: FileSearch, label: "Real Industry Projects" },
   { icon: RefreshCw, label: "Agile & DevOps" },
 ];
